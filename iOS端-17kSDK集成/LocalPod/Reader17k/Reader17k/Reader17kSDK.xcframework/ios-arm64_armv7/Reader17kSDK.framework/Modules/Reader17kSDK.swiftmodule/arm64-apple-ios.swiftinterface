@@ -1,0 +1,65 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.4 (swiftlang-1205.0.26.9 clang-1205.0.19.55)
+// swift-module-flags: -target arm64-apple-ios9.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name Reader17kSDK
+import Alamofire
+@_exported import AttributedString
+import SystemConfiguration.CaptiveNetwork
+import CommonCrypto
+import FSPagerView
+@_exported import Foundation
+@_exported import HBDNavigationBar
+@_exported import HandyJSON
+@_exported import Kingfisher
+import MJRefresh
+@_exported import Reader17kSDK
+import Regex
+import SAMKeychain
+@_exported import SensorsAnalyticsSDK
+@_exported import SnapKit
+import Swift
+import SwiftDate
+import SystemConfiguration
+@_exported import Toast_Swift
+@_exported import UIKit
+import UITableView_FDTemplateLayoutCell
+import WHC_ModelSqliteKit
+import WebKit
+import YBPopupMenu
+@_exported import ZNReader
+@objc public protocol ReaderLifecycleDelegate : ObjectiveC.NSObjectProtocol {
+  @objc optional func viewWillAppear(viewController: UIKit.UIViewController, parameter: Foundation.NSDictionary)
+  @objc optional func viewDidAppear(viewController: UIKit.UIViewController, parameter: Foundation.NSDictionary)
+  @objc optional func viewWillDisappear(viewController: UIKit.UIViewController, parameter: Foundation.NSDictionary)
+  @objc optional func viewDidDisappear(viewController: UIKit.UIViewController, parameter: Foundation.NSDictionary)
+}
+@objc public protocol ReaderAdDelegate : ObjectiveC.NSObjectProtocol {
+  @objc optional func showRewardAd(from viewController: UIKit.UIViewController, parameter: Foundation.NSDictionary, completion: @escaping ((Swift.Bool) -> Swift.Void))
+  @objc optional func newDayFirstOpenReaderAdView(from viewController: UIKit.UIViewController, parameter: Foundation.NSDictionary, renderSuccess: @escaping (CoreGraphics.CGSize) -> Swift.Void) -> UIKit.UIView
+  @objc optional func readerContentAdView(from viewController: UIKit.UIViewController, parameter: Foundation.NSDictionary) -> UIKit.UIView
+  @objc optional func readerEndAdView(from viewController: UIKit.UIViewController, parameter: Foundation.NSDictionary, renderSuccess: @escaping (CoreGraphics.CGSize) -> Swift.Void) -> UIKit.UIView
+  @objc optional func cellAdView(from viewController: UIKit.UIViewController, parameter: Foundation.NSDictionary?, renderSuccess: @escaping (CoreGraphics.CGSize) -> Swift.Void) -> UIKit.UIView
+}
+@_inheritsConvenienceInitializers @objc public class ReaderColSDK : ObjectiveC.NSObject {
+  @objc public static let pageMap: [[Swift.String : Swift.String]]
+  @objc public static let shared: Reader17kSDK.ReaderColSDK
+  @objc weak public var readerAdDelegate: Reader17kSDK.ReaderAdDelegate?
+  @objc weak public var readerLifecycleDelegate: Reader17kSDK.ReaderLifecycleDelegate?
+  @objc public func config(appid: Swift.String, secret: Swift.String, options: Foundation.NSDictionary? = [:])
+  @objc public var version: Swift.String? {
+    @objc get
+  }
+  @objc public var buildVersion: Swift.String? {
+    @objc get
+  }
+  @objc public var infoDictionary: [Swift.String : Any]? {
+    @objc get
+  }
+  @objc public func configRead(cycle: ObjectiveC.NSInteger, handler: @escaping ((Foundation.NSDictionary) -> Swift.Void))
+  @objc public func configReadQuit(handler: @escaping ((Foundation.NSDictionary) -> Swift.Void))
+  @objc public func getHomePageVc() -> UIKit.UIViewController
+  @objc public func openColSdkFromViewController(_ controller: UIKit.UIViewController)
+  @objc public func openColSdkFromViewController(_ controller: UIKit.UIViewController, bookId: Swift.Int)
+  @objc public func openColSdkFromViewController(_ controller: UIKit.UIViewController, target: Swift.String)
+  @objc override dynamic public init()
+  @objc deinit
+}
