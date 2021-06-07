@@ -20,8 +20,5 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "9.0" #平台及支持的最低版本
   s.frameworks   = "UIKit", "CoreText" #支持的框架
   s.swift_version = "5.0" #所使用swift版本
-  
-  s.dependency 'WCDB.swift'
-  
 end
 
