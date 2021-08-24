@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02C26E17D2785605E342F0E2 /* Pods_17k_TestOC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE8D5766289217361679F498 /* Pods_17k_TestOC.framework */; };
 		815D21E325E79B3A005F82FC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 815D21E225E79B3A005F82FC /* AppDelegate.m */; };
 		815D21E625E79B3A005F82FC /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 815D21E525E79B3A005F82FC /* SceneDelegate.m */; };
 		815D21E925E79B3A005F82FC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 815D21E825E79B3A005F82FC /* ViewController.m */; };
@@ -14,7 +15,6 @@
 		815D21EE25E79B3B005F82FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 815D21ED25E79B3B005F82FC /* Assets.xcassets */; };
 		815D21F125E79B3B005F82FC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 815D21EF25E79B3B005F82FC /* LaunchScreen.storyboard */; };
 		815D21F425E79B3B005F82FC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 815D21F325E79B3B005F82FC /* main.m */; };
-		815D221C25E79D35005F82FC /* Pods_17k_TestOC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC2C11BA179C3AC0E2F5FF3C /* Pods_17k_TestOC.framework */; };
 		815D23DD25ED0566005F82FC /* adPlaceholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 815D23DC25ED0566005F82FC /* adPlaceholder.png */; };
 		81860CC625F7690C008AD014 /* RewardedVideoAdManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 81860CC125F7690C008AD014 /* RewardedVideoAdManager.m */; };
 		81860CC725F7690C008AD014 /* NativeExpressAdManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 81860CC325F7690C008AD014 /* NativeExpressAdManager.m */; };
@@ -41,7 +41,7 @@
 		81860CC125F7690C008AD014 /* RewardedVideoAdManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RewardedVideoAdManager.m; sourceTree = "<group>"; };
 		81860CC325F7690C008AD014 /* NativeExpressAdManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NativeExpressAdManager.m; sourceTree = "<group>"; };
 		81860CC425F7690C008AD014 /* NativeExpressAdManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NativeExpressAdManager.h; sourceTree = "<group>"; };
-		FC2C11BA179C3AC0E2F5FF3C /* Pods_17k_TestOC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_17k_TestOC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE8D5766289217361679F498 /* Pods_17k_TestOC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_17k_TestOC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,7 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				815D221C25E79D35005F82FC /* Pods_17k_TestOC.framework in Frameworks */,
+				02C26E17D2785605E342F0E2 /* Pods_17k_TestOC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,7 +59,7 @@
 		6F980C23393BA0FAE6F9881D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FC2C11BA179C3AC0E2F5FF3C /* Pods_17k_TestOC.framework */,
+				FE8D5766289217361679F498 /* Pods_17k_TestOC.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -147,7 +147,6 @@
 			buildConfigurationList = 815D21F725E79B3B005F82FC /* Build configuration list for PBXNativeTarget "TestOC" */;
 			buildPhases = (
 				2C31D6C9C4D979F33E28E819 /* [CP] Check Pods Manifest.lock */,
-				4853891D27FE397D4F666936 /* [CP] Prepare Artifacts */,
 				815D21DA25E79B3A005F82FC /* Sources */,
 				815D21DB25E79B3A005F82FC /* Frameworks */,
 				815D21DC25E79B3A005F82FC /* Resources */,
@@ -247,23 +246,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-17k-TestOC/Pods-17k-TestOC-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4853891D27FE397D4F666936 /* [CP] Prepare Artifacts */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-17k-TestOC/Pods-17k-TestOC-artifacts-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Prepare Artifacts";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-17k-TestOC/Pods-17k-TestOC-artifacts-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-17k-TestOC/Pods-17k-TestOC-artifacts.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F43E76828E5F890B60A62383 /* [CP] Copy Pods Resources */ = {

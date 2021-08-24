@@ -272,8 +272,13 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) ReaderColSDK
 ///     //  Prints {
 ///                 bookName = "\U9ed1\U6697\U81f3\U4e0a";//书名
 ///                 chapterName = "001 \U906d\U9047\U6076\U9b54";//章节名
+///                 chapterIndex = 2;// 当前正在阅读第几章
 ///                 chapterTotalPages = 11;//章节内容分页数量
+///                 chapterContentCount = 1000;//章节字数
+///
 ///                 pageInChapter = 8;// 当前正在阅读第几页（从1开始计数）
+///                 pageContentCount = 100;// 当前正在阅读页字数
+///
 ///                 time = 710000;// 已阅读时长 毫秒（关闭阅读器会重新计时）
 ///                 }
 /// }
@@ -285,6 +290,29 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) ReaderColSDK
 - (void)configReadWithCycle:(NSInteger)cycle handler:(void (^ _Nonnull)(NSDictionary * _Nonnull))handler;
 /// 阅读（一本书）退出回调
 - (void)configReadQuitWithHandler:(void (^ _Nonnull)(NSDictionary * _Nonnull))handler;
+/// 阅读页面变化回调
+/// \code
+/// Reader17kSDK.shared.configReadPageChanged() { (parameter) in
+///     print(parameter)
+///     //  Prints {
+///                 bookName = "\U9ed1\U6697\U81f3\U4e0a";//书名
+///                 chapterName = "001 \U906d\U9047\U6076\U9b54";//章节名
+///                 chapterIndex = 2;// 当前正在阅读第几章
+///                 chapterTotalPages = 11;//章节内容分页数量
+///                 chapterContentCount = 1000;//章节字数
+///
+///                 pageInChapter = 8;// 当前正在阅读第几页（从1开始计数）
+///                 pageContentCount = 100;// 当前正在阅读页字数
+///
+///                 isContentChange = 1;是否为内容变化 0 常规页码变更， 1 内容变化。
+///
+///                 time = 710000;// 已阅读时长 毫秒（关闭阅读器会重新计时）
+///                 }
+/// }
+///
+/// \endcode\param handler 闭包事件
+///
+- (void)configReadPageChangedWithHandler:(void (^ _Nonnull)(NSDictionary * _Nonnull))handler;
 /// 获取 单页面 （通常当作分页接入，例如顶部分栏的子页面）
 - (UIViewController * _Nonnull)getHomePageVc SWIFT_WARN_UNUSED_RESULT;
 /// 打开 SDK 主页（tabVC）
@@ -613,8 +641,13 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) ReaderColSDK
 ///     //  Prints {
 ///                 bookName = "\U9ed1\U6697\U81f3\U4e0a";//书名
 ///                 chapterName = "001 \U906d\U9047\U6076\U9b54";//章节名
+///                 chapterIndex = 2;// 当前正在阅读第几章
 ///                 chapterTotalPages = 11;//章节内容分页数量
+///                 chapterContentCount = 1000;//章节字数
+///
 ///                 pageInChapter = 8;// 当前正在阅读第几页（从1开始计数）
+///                 pageContentCount = 100;// 当前正在阅读页字数
+///
 ///                 time = 710000;// 已阅读时长 毫秒（关闭阅读器会重新计时）
 ///                 }
 /// }
@@ -626,6 +659,29 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) ReaderColSDK
 - (void)configReadWithCycle:(NSInteger)cycle handler:(void (^ _Nonnull)(NSDictionary * _Nonnull))handler;
 /// 阅读（一本书）退出回调
 - (void)configReadQuitWithHandler:(void (^ _Nonnull)(NSDictionary * _Nonnull))handler;
+/// 阅读页面变化回调
+/// \code
+/// Reader17kSDK.shared.configReadPageChanged() { (parameter) in
+///     print(parameter)
+///     //  Prints {
+///                 bookName = "\U9ed1\U6697\U81f3\U4e0a";//书名
+///                 chapterName = "001 \U906d\U9047\U6076\U9b54";//章节名
+///                 chapterIndex = 2;// 当前正在阅读第几章
+///                 chapterTotalPages = 11;//章节内容分页数量
+///                 chapterContentCount = 1000;//章节字数
+///
+///                 pageInChapter = 8;// 当前正在阅读第几页（从1开始计数）
+///                 pageContentCount = 100;// 当前正在阅读页字数
+///
+///                 isContentChange = 1;是否为内容变化 0 常规页码变更， 1 内容变化。
+///
+///                 time = 710000;// 已阅读时长 毫秒（关闭阅读器会重新计时）
+///                 }
+/// }
+///
+/// \endcode\param handler 闭包事件
+///
+- (void)configReadPageChangedWithHandler:(void (^ _Nonnull)(NSDictionary * _Nonnull))handler;
 /// 获取 单页面 （通常当作分页接入，例如顶部分栏的子页面）
 - (UIViewController * _Nonnull)getHomePageVc SWIFT_WARN_UNUSED_RESULT;
 /// 打开 SDK 主页（tabVC）

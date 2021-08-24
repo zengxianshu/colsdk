@@ -55,6 +55,7 @@ import YBPopupMenu
   }
   @objc public func configRead(cycle: ObjectiveC.NSInteger, handler: @escaping ((Foundation.NSDictionary) -> Swift.Void))
   @objc public func configReadQuit(handler: @escaping ((Foundation.NSDictionary) -> Swift.Void))
+  @objc public func configReadPageChanged(handler: @escaping ((Foundation.NSDictionary) -> Swift.Void))
   @objc public func getHomePageVc() -> UIKit.UIViewController
   @objc public func openColSdkFromViewController(_ controller: UIKit.UIViewController)
   @objc public func openColSdkFromViewController(_ controller: UIKit.UIViewController, bookId: Swift.Int)
