@@ -8,8 +8,8 @@ abstract_target '17k' do
   
   target 'TestOC' do
     
-    #阅读 SDK 注意路径 如果 LocalPods和 Podfile 平级 :path => './LocalPod/Reader17k'
-    pod 'Reader17k',    :path => '../LocalPod/Reader17k'
+    #阅读 SDK 注意路径
+    pod 'Reader17kSDK',    :path => './..'
     
     # === 以下非必需，demo 测试所用 === #
     # 穿山甲广告
