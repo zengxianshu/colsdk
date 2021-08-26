@@ -218,18 +218,58 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @class NSNumber;
 @class UIView;
 
+/// 广告协议 （可选）
 SWIFT_PROTOCOL("_TtP12Reader17kSDK16ReaderAdDelegate_")
 @protocol ReaderAdDelegate <NSObject>
 @optional
-/// 展示视频广告
+/// 展示视频广告  （可选  未实现该协议则不会展示激励视频广告相关 ）
+/// \param viewController 触发激励视频广告的 viewController
+///
+/// \param parameter 
+/// {
+/// “isBackSide”  // 是否为阅读页背面 (仅当仿真翻页时存在)
+/// “isDark”  // 是否为阅读深色模式
+/// }
+///
+/// \param completion 激励视频 结果回调  【completion(true) 激励视频激励完成；completion(false) 则为失败】
+///
 - (void)showRewardAdFrom:(UIViewController * _Nonnull)viewController parameter:(NSDictionary * _Nonnull)parameter completion:(void (^ _Nonnull)(BOOL))completion;
-/// 每日首次打开阅读器弹窗广告
+/// 每日首次打开阅读器弹窗广告 （可选 未实现该协议则不会展示每日首次打开阅读器弹窗广告相关）
+/// \param viewController 触发广告的 viewController
+///
+/// \param parameter 
+/// {
+/// “isDark”  // 是否为阅读深色模式
+/// }
+///
+/// \param renderSuccess 更新广告size renderSuccess(adPressView.bounds.size)
+///
 - (UIView * _Nonnull)newDayFirstOpenReaderAdViewFrom:(UIViewController * _Nonnull)viewController parameter:(NSDictionary * _Nonnull)parameter renderSuccess:(void (^ _Nonnull)(CGSize))renderSuccess SWIFT_WARN_UNUSED_RESULT;
-/// 章节内容广告
+/// 章节内容广告 （可选 未实现该协议则不会展示章节内容间的广告相关）
+/// \param viewController 触发广告的 viewController
+///
+/// \param parameter 
+/// {
+/// “isDark”  // 是否为阅读深色模式
+/// “isBackSide”  // 是否为阅读页背面 (仅当仿真翻页时存在)
+/// }
+///
 - (UIView * _Nonnull)readerContentAdViewFrom:(UIViewController * _Nonnull)viewController parameter:(NSDictionary * _Nonnull)parameter SWIFT_WARN_UNUSED_RESULT;
-/// 书籍末页广告
+/// 书籍末页广告 （可选 未实现该协议则不会展示阅读末页广告相关）
+/// \param viewController 触发广告的 viewController
+///
+/// \param parameter 拓展属性 当前为空
+///
+/// \param renderSuccess 更新广告size renderSuccess(adPressView.bounds.size)
+///
 - (UIView * _Nonnull)readerEndAdViewFrom:(UIViewController * _Nonnull)viewController parameter:(NSDictionary * _Nonnull)parameter renderSuccess:(void (^ _Nonnull)(CGSize))renderSuccess SWIFT_WARN_UNUSED_RESULT;
-/// 信息流广告
+/// 信息流广告 （可选 未实现该协议则不会展示信息流广告相关）
+/// \param viewController 触发广告的 viewController
+///
+/// \param parameter 拓展属性 当前为空
+///
+/// \param renderSuccess 更新广告size renderSuccess(adPressView.bounds.size)
+///
 - (UIView * _Nonnull)cellAdViewFrom:(UIViewController * _Nonnull)viewController parameter:(NSDictionary * _Nullable)parameter renderSuccess:(void (^ _Nonnull)(CGSize))renderSuccess SWIFT_WARN_UNUSED_RESULT;
 @end
 
@@ -253,7 +293,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) ReaderColSDK
 ///
 /// \param secret 渠道 申请获得
 ///
-/// \param options 其它信息 {
+/// \param options 其它信息
+/// {
 /// “enableService” = “（0 或 1）” //是否显示联系客服入口 default  1
 /// “servcie” = “urlStr” // 客服链接地址 默认使用SDK客服地址
 /// }
@@ -265,7 +306,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) ReaderColSDK
 @property (nonatomic, readonly, copy) NSString * _Nullable buildVersion;
 /// infoDictionary
 @property (nonatomic, readonly, copy) NSDictionary<NSString *, id> * _Nullable infoDictionary;
-/// 阅读定时处理
+/// 阅读定时处理 （可选）
 /// \code
 /// Reader17kSDK.shared.config(readCycle: 10) { (parameter) in
 ///     print(parameter)
@@ -285,10 +326,29 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) ReaderColSDK
 ///
 /// \endcode\param readCycle 周期 单位秒.
 ///
-/// \param handler 闭包事件
+/// \param handler 回调闭包事件
 ///
 - (void)configReadWithCycle:(NSInteger)cycle handler:(void (^ _Nonnull)(NSDictionary * _Nonnull))handler;
 /// 阅读（一本书）退出回调
+/// \code
+/// Reader17kSDK.shared.configReadQuit() { (parameter) in
+///     print(parameter)
+///     //  Prints {
+///                 bookName = "\U9ed1\U6697\U81f3\U4e0a";//书名
+///                 chapterName = "001 \U906d\U9047\U6076\U9b54";//章节名
+///                 chapterIndex = 2;// 当前正在阅读第几章
+///                 chapterTotalPages = 11;//章节内容分页数量
+///                 chapterContentCount = 1000;//章节字数
+///
+///                 pageInChapter = 8;// 当前正在阅读第几页（从1开始计数）
+///                 pageContentCount = 100;// 当前正在阅读页字数
+///
+///                 time = 710000;// 已阅读时长 毫秒（关闭阅读器会重新计时）
+///                 }
+/// }
+///
+/// \endcode\param handler 回调闭包事件
+///
 - (void)configReadQuitWithHandler:(void (^ _Nonnull)(NSDictionary * _Nonnull))handler;
 /// 阅读页面变化回调
 /// \code
@@ -316,10 +376,20 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) ReaderColSDK
 /// 获取 单页面 （通常当作分页接入，例如顶部分栏的子页面）
 - (UIViewController * _Nonnull)getHomePageVc SWIFT_WARN_UNUSED_RESULT;
 /// 打开 SDK 主页（tabVC）
+/// \param controller 当前控制器，用来打开SDK （presentingViewController）
+///
 - (void)openColSdkFromViewController:(UIViewController * _Nonnull)controller;
 /// 打开书籍详情页
+/// \param controller 当前控制器，用来打开SDK （presentingViewController）
+///
+/// \param bookId 书籍ID
+///
 - (void)openColSdkFromViewController:(UIViewController * _Nonnull)controller bookId:(NSInteger)bookId;
-/// 打开SDK （target 跳转）
+/// 打开SDK （target 跳转， 非开放功能）
+/// \param controller 当前控制器，用来打开SDK （presentingViewController）
+///
+/// \param target 界面路由
+///
 - (void)openColSdkFromViewController:(UIViewController * _Nonnull)controller target:(NSString * _Nonnull)target;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -329,6 +399,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) ReaderColSDK
 
 
 
+/// 界面控制器（viewController）生命周期 协议 （可选）
 SWIFT_PROTOCOL("_TtP12Reader17kSDK23ReaderLifecycleDelegate_")
 @protocol ReaderLifecycleDelegate <NSObject>
 @optional
@@ -587,18 +658,58 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @class NSNumber;
 @class UIView;
 
+/// 广告协议 （可选）
 SWIFT_PROTOCOL("_TtP12Reader17kSDK16ReaderAdDelegate_")
 @protocol ReaderAdDelegate <NSObject>
 @optional
-/// 展示视频广告
+/// 展示视频广告  （可选  未实现该协议则不会展示激励视频广告相关 ）
+/// \param viewController 触发激励视频广告的 viewController
+///
+/// \param parameter 
+/// {
+/// “isBackSide”  // 是否为阅读页背面 (仅当仿真翻页时存在)
+/// “isDark”  // 是否为阅读深色模式
+/// }
+///
+/// \param completion 激励视频 结果回调  【completion(true) 激励视频激励完成；completion(false) 则为失败】
+///
 - (void)showRewardAdFrom:(UIViewController * _Nonnull)viewController parameter:(NSDictionary * _Nonnull)parameter completion:(void (^ _Nonnull)(BOOL))completion;
-/// 每日首次打开阅读器弹窗广告
+/// 每日首次打开阅读器弹窗广告 （可选 未实现该协议则不会展示每日首次打开阅读器弹窗广告相关）
+/// \param viewController 触发广告的 viewController
+///
+/// \param parameter 
+/// {
+/// “isDark”  // 是否为阅读深色模式
+/// }
+///
+/// \param renderSuccess 更新广告size renderSuccess(adPressView.bounds.size)
+///
 - (UIView * _Nonnull)newDayFirstOpenReaderAdViewFrom:(UIViewController * _Nonnull)viewController parameter:(NSDictionary * _Nonnull)parameter renderSuccess:(void (^ _Nonnull)(CGSize))renderSuccess SWIFT_WARN_UNUSED_RESULT;
-/// 章节内容广告
+/// 章节内容广告 （可选 未实现该协议则不会展示章节内容间的广告相关）
+/// \param viewController 触发广告的 viewController
+///
+/// \param parameter 
+/// {
+/// “isDark”  // 是否为阅读深色模式
+/// “isBackSide”  // 是否为阅读页背面 (仅当仿真翻页时存在)
+/// }
+///
 - (UIView * _Nonnull)readerContentAdViewFrom:(UIViewController * _Nonnull)viewController parameter:(NSDictionary * _Nonnull)parameter SWIFT_WARN_UNUSED_RESULT;
-/// 书籍末页广告
+/// 书籍末页广告 （可选 未实现该协议则不会展示阅读末页广告相关）
+/// \param viewController 触发广告的 viewController
+///
+/// \param parameter 拓展属性 当前为空
+///
+/// \param renderSuccess 更新广告size renderSuccess(adPressView.bounds.size)
+///
 - (UIView * _Nonnull)readerEndAdViewFrom:(UIViewController * _Nonnull)viewController parameter:(NSDictionary * _Nonnull)parameter renderSuccess:(void (^ _Nonnull)(CGSize))renderSuccess SWIFT_WARN_UNUSED_RESULT;
-/// 信息流广告
+/// 信息流广告 （可选 未实现该协议则不会展示信息流广告相关）
+/// \param viewController 触发广告的 viewController
+///
+/// \param parameter 拓展属性 当前为空
+///
+/// \param renderSuccess 更新广告size renderSuccess(adPressView.bounds.size)
+///
 - (UIView * _Nonnull)cellAdViewFrom:(UIViewController * _Nonnull)viewController parameter:(NSDictionary * _Nullable)parameter renderSuccess:(void (^ _Nonnull)(CGSize))renderSuccess SWIFT_WARN_UNUSED_RESULT;
 @end
 
@@ -622,7 +733,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) ReaderColSDK
 ///
 /// \param secret 渠道 申请获得
 ///
-/// \param options 其它信息 {
+/// \param options 其它信息
+/// {
 /// “enableService” = “（0 或 1）” //是否显示联系客服入口 default  1
 /// “servcie” = “urlStr” // 客服链接地址 默认使用SDK客服地址
 /// }
@@ -634,7 +746,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) ReaderColSDK
 @property (nonatomic, readonly, copy) NSString * _Nullable buildVersion;
 /// infoDictionary
 @property (nonatomic, readonly, copy) NSDictionary<NSString *, id> * _Nullable infoDictionary;
-/// 阅读定时处理
+/// 阅读定时处理 （可选）
 /// \code
 /// Reader17kSDK.shared.config(readCycle: 10) { (parameter) in
 ///     print(parameter)
@@ -654,10 +766,29 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) ReaderColSDK
 ///
 /// \endcode\param readCycle 周期 单位秒.
 ///
-/// \param handler 闭包事件
+/// \param handler 回调闭包事件
 ///
 - (void)configReadWithCycle:(NSInteger)cycle handler:(void (^ _Nonnull)(NSDictionary * _Nonnull))handler;
 /// 阅读（一本书）退出回调
+/// \code
+/// Reader17kSDK.shared.configReadQuit() { (parameter) in
+///     print(parameter)
+///     //  Prints {
+///                 bookName = "\U9ed1\U6697\U81f3\U4e0a";//书名
+///                 chapterName = "001 \U906d\U9047\U6076\U9b54";//章节名
+///                 chapterIndex = 2;// 当前正在阅读第几章
+///                 chapterTotalPages = 11;//章节内容分页数量
+///                 chapterContentCount = 1000;//章节字数
+///
+///                 pageInChapter = 8;// 当前正在阅读第几页（从1开始计数）
+///                 pageContentCount = 100;// 当前正在阅读页字数
+///
+///                 time = 710000;// 已阅读时长 毫秒（关闭阅读器会重新计时）
+///                 }
+/// }
+///
+/// \endcode\param handler 回调闭包事件
+///
 - (void)configReadQuitWithHandler:(void (^ _Nonnull)(NSDictionary * _Nonnull))handler;
 /// 阅读页面变化回调
 /// \code
@@ -685,10 +816,20 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) ReaderColSDK
 /// 获取 单页面 （通常当作分页接入，例如顶部分栏的子页面）
 - (UIViewController * _Nonnull)getHomePageVc SWIFT_WARN_UNUSED_RESULT;
 /// 打开 SDK 主页（tabVC）
+/// \param controller 当前控制器，用来打开SDK （presentingViewController）
+///
 - (void)openColSdkFromViewController:(UIViewController * _Nonnull)controller;
 /// 打开书籍详情页
+/// \param controller 当前控制器，用来打开SDK （presentingViewController）
+///
+/// \param bookId 书籍ID
+///
 - (void)openColSdkFromViewController:(UIViewController * _Nonnull)controller bookId:(NSInteger)bookId;
-/// 打开SDK （target 跳转）
+/// 打开SDK （target 跳转， 非开放功能）
+/// \param controller 当前控制器，用来打开SDK （presentingViewController）
+///
+/// \param target 界面路由
+///
 - (void)openColSdkFromViewController:(UIViewController * _Nonnull)controller target:(NSString * _Nonnull)target;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -698,6 +839,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) ReaderColSDK
 
 
 
+/// 界面控制器（viewController）生命周期 协议 （可选）
 SWIFT_PROTOCOL("_TtP12Reader17kSDK23ReaderLifecycleDelegate_")
 @protocol ReaderLifecycleDelegate <NSObject>
 @optional

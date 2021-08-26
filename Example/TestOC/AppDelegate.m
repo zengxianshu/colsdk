@@ -20,12 +20,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    NSDictionary *sdkOptions = @{@"enableService":@"1",@"servcie":@"客服urlStr"};
+    NSDictionary *sdkOptions = @{@"enableService":@"1", /* @"servcie":@"客服urlStr" */};
+    // 配置SDK
     [ReaderColSDK.shared configWithAppid:@"1207" secret:@"asdf!@" options:sdkOptions];
     
     NSLog(@"%@",ReaderColSDK.shared.version);
+    // 接入广告（当前demo 采用的穿山甲广告）
     [BUAdSDKManager setAppID:kBUAdAppKey];
     [BUAdSDKManager setIsPaidApp:false];
+
     return YES;
 }
 

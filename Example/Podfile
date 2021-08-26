@@ -8,8 +8,11 @@ abstract_target '17k' do
   
   target 'TestOC' do
     
-    #阅读 SDK 注意路径
+    #阅读 SDK 本地
     pod 'Reader17kSDK',    :path => './..'
+    
+#    #阅读 SDK 远端
+#    pod 'Reader17kSDK',    :git => 'https://gitee.com/zm_ios_example/col_sdk_example.git'
     
     # === 以下非必需，demo 测试所用 === #
     # 穿山甲广告

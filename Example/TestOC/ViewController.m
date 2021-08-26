@@ -11,6 +11,7 @@
 #import <Masonry/Masonry.h>
 
 #import <Reader17kSDK/Reader17kSDK.h>
+
 typedef void (^VideoAdComplation)(BOOL);
 
 
@@ -22,7 +23,7 @@ typedef void (^VideoAdComplation)(BOOL);
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
     UIViewController *vc = [ReaderColSDK.shared getHomePageVc];
     [self addChildViewController:vc];
     [self.view addSubview:vc.view];
@@ -33,6 +34,7 @@ typedef void (^VideoAdComplation)(BOOL);
 // MARK: - ReaderAdDelegate
 // 激励视频广告 可选 未实现该代理则不会展示激励视频广告相关
 -(void)showRewardAdFrom:(UIViewController *)viewController parameter:(NSDictionary *)parameter completion:(void (^)(BOOL))completion {
+    
     self.rewardedVideoAdManager = [RewardedVideoAdManager showVideoAdWith:viewController videoAdComplation:^(BOOL result) {
         completion(result);
     }];
@@ -40,11 +42,13 @@ typedef void (^VideoAdComplation)(BOOL);
 
 // 每日首次打开阅读器弹窗广告 可选 未实现该代理则不会展示每日首次打开阅读器弹窗广告相关
 - (UIView *)newDayFirstOpenReaderAdViewFrom:(UIViewController *)viewController parameter:(NSDictionary *)parameter renderSuccess:(void (^ _Nonnull)(CGSize))renderSuccess{
+    
     return [self cellAdViewFrom:viewController parameter:parameter renderSuccess:renderSuccess];
 }
 
 // 内容中插播广告 可选 未实现该代理则不会展示章节内容间的广告相关
 - (UIView *)readerContentAdViewFrom:(UIViewController *)viewController parameter:(NSDictionary *)parameter {
+    
     NativeExpressAdCarrierView *adCarrierView = [[NativeExpressAdCarrierView alloc] init];
     adCarrierView.clipsToBounds = true;
     // 阅读页背面判断
@@ -57,6 +61,7 @@ typedef void (^VideoAdComplation)(BOOL);
 
 // 阅读末页广告 可选 未实现该代理则不会展示阅读末页广告相关
 - (UIView *)readerEndAdViewFrom:(UIViewController *)viewController parameter:(NSDictionary *)parameter renderSuccess:(void (^ _Nonnull)(CGSize))renderSuccess{
+    
     return [self cellAdViewFrom:viewController parameter:parameter renderSuccess:renderSuccess];
 }
 
@@ -73,6 +78,7 @@ typedef void (^VideoAdComplation)(BOOL);
 @implementation NativeExpressAdCarrierView
 
 -(instancetype)initWithFrame:(CGRect)frame {
+    
     self = [super initWithFrame:frame];
     if (self) {
         [self setup];
@@ -146,8 +152,7 @@ typedef void (^VideoAdComplation)(BOOL);
 }
 
     
-- (void)dealloc
-{
+- (void)dealloc {
     [self removeADManager];
 }
     
